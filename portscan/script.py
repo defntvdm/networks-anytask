@@ -7,6 +7,8 @@ import socket
 import os
 from threading import Thread
 
+THERE_IS_OPEN_PORTS = False
+
 class Port:
 	def __init__(self, port):
 		self.port = port
@@ -17,6 +19,7 @@ def check_port(ip, port):
 	try:
 		con = socket.create_connection((ip, port.port), 5)
 		port.open_tcp = True
+		THERE_IS_OPEN_PORTS = True
 		try:
 			con.close()
 		except:
@@ -47,10 +50,13 @@ def main():
 			thread.join()
 		print("HOST: ", ip)
 		print("PORTS: ", start, "-", end, sep="")
-		print("TCP ports:")
-		for port in tcp_ports:
-			if port.open_tcp:
-				print("   ", port.port)
+		if THERE_IS_OPEN_PORTS:
+			print("TCP ports:")
+			for port in tcp_ports:
+				if port.open_tcp:
+					print("   ", port.port)
+		else:
+			print("All ports are closed")
 	except:
 		print("Проверьте правильность аргументов")
 
