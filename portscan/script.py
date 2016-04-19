@@ -16,6 +16,7 @@ class Port:
 		self.open_udp = False
 
 def check_port(ip, port):
+	global THERE_IS_OPEN_PORTS
 	try:
 		con = socket.create_connection((ip, port.port), 5)
 		port.open_tcp = True
@@ -62,3 +63,4 @@ def main():
 
 if __name__ == "__main__":
 	main()
+
