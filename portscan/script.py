@@ -34,7 +34,7 @@ class Checker(Thread):
 		global THERE_IS_OPEN_PORTS
 		for port in self.ports:
 			try:
-				con = socket.create_connection((self.ip, port.port), 5)
+				con = socket.create_connection((self.ip, port.port), 0.5)
 				port.open_tcp = True
 				THERE_IS_OPEN_PORTS = True
 				con.close()
@@ -53,8 +53,8 @@ def main():
 		end = 65535
 	threads = []
 	tcp_ports = [Port(port) for port in range(start, end + 1)]
-	for port in range(start, end+1, 20):
-		th = Checker(ip, tcp_ports[port:port+20])
+	for port in range(start, end+1, 10):
+		th = Checker(ip, tcp_ports[port-start:port-start+10])
 		threads.append(th)
 		th.start()
 	for thread in threads:
