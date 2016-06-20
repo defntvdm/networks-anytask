@@ -163,6 +163,7 @@ class Mail:
             for i in range(self.start, self.end+1):
                 self.ssl_sock.send(retr.format(str(i)).encode())
                 data = self.ssl_sock.recv(4096).decode()
+                print(data)
                 amount = int(data.split()[1])
                 message = ""
                 while data:
