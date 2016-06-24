@@ -18,7 +18,6 @@ def get_args():
 
 
 def current_time(shift):
-	#2208988800-количество секунд между 01.01.1900 и 01.01.1970
 	return int(time()) + 2208988800 + shift
 
 
@@ -34,6 +33,7 @@ class Client(Thread):
 		li_vn_mode, stratum, poll, precision, root_delay, root_dispersion,\
 		reference_identifier, reference_timestamp, originate_timestamp,\
 		rec, transmit_timestamp = struct.unpack("!BBBBIIIQQQQ", self.packet)
+		#2208988800-количество секунд между 01.01.1900 и 01.01.1970
 		receive_timestamp = current_time(self.shift)
 		li_vn_mode = 36
 		if datetime.now().day == 30 and datetime.now().month == 6 or\
